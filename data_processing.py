@@ -9,7 +9,7 @@ outdir = 'cleaned_data/'
 
 def cleanCanadaCovid(path):
     print("Cleaning Canada Covid Data...")
-    full_path = path + '/' + filenames[0]
+    full_path = path + filenames[0]
     data = pd.read_csv(full_path)
     
     select_data = data[['prname', 'date', 'numconf', 'numprob', 'numdeaths', 'numtotal', 'numtoday', 'numdeathstoday',
@@ -20,7 +20,7 @@ def cleanCanadaCovid(path):
     
 def cleanCanadaVaccine(path):
     print("Cleaning Canada Vaccine Data...")
-    full_path = path + '/' + filenames[1]
+    full_path = path + filenames[1]
     data = pd.read_csv(full_path)
     
     select_data = data[['week_end', 'prename', 'numtotal_atleast1dose', 'numtotal_partially', 'numtotal_fully',
@@ -31,7 +31,7 @@ def cleanCanadaVaccine(path):
 
 def cleanInternationalCovid(path):
     print("Cleaning International Covid Data...")
-    full_path = path + '/' + filenames[2]
+    full_path = path + filenames[2]
     data = pd.read_csv(full_path)
     
     select_data = data[['iso_code', 'date', 'new_cases', 'new_cases_14_days', 'new_cases_14_days_100k', 'total_cases',
@@ -43,13 +43,13 @@ def cleanInternationalCovid(path):
 
 def cleanUSACovid(path):
     print("Cleaning USA Covid Data...")
-    full_path = path + '/' + filenames[3]
+    full_path = path + filenames[3]
     data = pd.read_csv(full_path)
     pass
     
 def cleanUSAVaccine(path):
     print("Cleaning USA Vaccine Data...")
-    full_path = path + '/' + filenames[4]
+    full_path = path + filenames[4]
     data = pd.read_csv(full_path)
     pass
 
@@ -64,9 +64,8 @@ def main(path):
 
 if __name__ == '__main__':
     if(len(sys.argv) > 1):
-        data_directory = sys.argv[1]
+        data_directory = sys.argv[1] + '/'
+        main(data_directory)
     else:
-        data_directory = ''
-        
-    main(data_directory)
+        main('')
 
