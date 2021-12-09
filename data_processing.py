@@ -17,7 +17,7 @@ def cleanCanadaCovid(path):
                         'numactive', 'numtotal_last14', 'numdeaths_last14', 'numtotal_last7', 'numdeaths_last7']]
     
     out_name = 'cleaned-' + filenames[0]
-    select_data.to_csv(out_name)
+    select_data.to_csv(out_name, index=False)
     
     
 def cleanCanadaVaccine(path):
@@ -29,7 +29,7 @@ def cleanCanadaVaccine(path):
                         'numeligible_atleast1dose', 'numeligible_partially', 'numeligible_fully']]
     
     out_name = 'cleaned-' + filenames[1]
-    select_data.to_csv(out_name)
+    select_data.to_csv(out_name, index=False)
 
 
 def cleanInternationalCovid(path):
@@ -42,7 +42,7 @@ def cleanInternationalCovid(path):
                         'total_deaths_100k']]
     
     out_name = 'cleaned-' + filenames[2]
-    select_data.to_csv(out_name)
+    select_data.to_csv(out_name, index=False)
 
 
 def cleanUSACovid(path):
@@ -56,7 +56,7 @@ def cleanUSACovid(path):
     select_data = select_data.sort_values('submission_date')
     
     out_name = 'cleaned-' + filenames[3]
-    select_data.to_csv(out_name)
+    select_data.to_csv(out_name, index=False)
     
     
 def cleanUSAVaccine(path):
@@ -70,7 +70,7 @@ def cleanUSAVaccine(path):
                                               'Administered_Dose1_Pop_Pct': 'dose1_pct'})
     
     out_name = 'cleaned-' + filenames[4]
-    select_data.to_csv(out_name)
+    select_data.to_csv(out_name, index=False)
 
 
 def main(path):
