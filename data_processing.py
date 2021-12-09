@@ -12,9 +12,11 @@ def cleanCanadaCovid(path):
     print("Cleaning Canada Covid Data...")
     full_path = path + filenames[0]
     data = pd.read_csv(full_path)
-    
-    select_data = data[['prname', 'date', 'numconf', 'numprob', 'numdeaths', 'numtotal', 'numtoday', 'numdeathstoday',
-                        'numactive', 'numtotal_last14', 'numdeaths_last14', 'numtotal_last7', 'numdeaths_last7']]
+
+    select_data = data[['prname', 'date', 'numtotal', 'numtoday', 'numdeaths', 'numdeathstoday']]
+    select_data = select_data.rename(columns={'prname': 'province', 'date': 'date', 'numtotal': 'cases_total', 
+                                              'numtoday': 'cases_daily', 'numdeaths': 'deaths_total',
+                                              'numdeathstoday': 'deaths_daily'})
     
     out_name = 'cleaned-' + filenames[0]
     select_data.to_csv(out_name)
@@ -25,8 +27,9 @@ def cleanCanadaVaccine(path):
     full_path = path + filenames[1]
     data = pd.read_csv(full_path)
     
-    select_data = data[['week_end', 'prename', 'numtotal_atleast1dose', 'numtotal_partially', 'numtotal_fully',
-                        'numeligible_atleast1dose', 'numeligible_partially', 'numeligible_fully']]
+    select_data = data[['week_end', 'prename', 'numtotal_atleast1dose', 'proptotal_atleast1dose']]
+    select_data = select_data.rename(columns={'week_end': 'date', 'prename': 'province', 'numtotal_atleast1dose': 'dose1', 
+                                              'proptotal_atleast1dose': 'dose1_pct'})
     
     out_name = 'cleaned-' + filenames[1]
     select_data.to_csv(out_name)
@@ -37,10 +40,11 @@ def cleanInternationalCovid(path):
     full_path = path + filenames[2]
     data = pd.read_csv(full_path)
     
-    select_data = data[['iso_code', 'date', 'new_cases', 'new_cases_14_days', 'new_cases_14_days_100k', 'total_cases',
-                        'total_cases_100k', 'new_deaths_14_days', 'new_deaths_14_days_100k', 'total_deaths',
-                        'total_deaths_100k']]
-    
+    select_data = data[['iso_code', 'date', 'total_cases', 'new_cases', 'total_deaths', 'new_deaths']]
+    select_data = select_data.rename(columns={'iso_code': 'country', 'date': 'date', 'total_cases': 'cases_total', 
+                                          'new_cases': 'cases_daily', 'total_deaths': 'deaths_total',
+                                          'new_deaths': 'deaths_daily'})
+
     out_name = 'cleaned-' + filenames[2]
     select_data.to_csv(out_name)
 
@@ -50,10 +54,13 @@ def cleanUSACovid(path):
     full_path = path + filenames[3]
     data = pd.read_csv(full_path, parse_dates=['submission_date'])
     
-    select_data = data[['submission_date', 'state', 'tot_cases', 'conf_cases', 'prob_cases', 'new_case', 'tot_death',
-                        'new_death']]
+    select_data = data[['submission_date', 'state', 'tot_cases', 'new_case', 'tot_death', 'new_death']]
+    select_data = select_data.rename(columns={'state': 'state', 'submission_date': 'date', 'tot_cases': 'cases_total', 
+                                              'new_case': 'cases_daily', 'tot_death': 'deaths_total',
+                                              'new_death': 'deaths_daily'})
     select_data = select_data.dropna()
-    select_data = select_data.sort_values('submission_date')
+    select_data = select_data.sort_values('date')
+    
     
     out_name = 'cleaned-' + filenames[3]
     select_data.to_csv(out_name)
@@ -79,6 +86,7 @@ def main(path):
     cleanInternationalCovid(path)
     cleanUSACovid(path)
     cleanUSAVaccine(path)
+    print("Success")
 
 
 if __name__ == '__main__':
@@ -87,4 +95,3 @@ if __name__ == '__main__':
         main(data_directory)
     else:
         main('')
-
