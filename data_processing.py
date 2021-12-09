@@ -7,6 +7,7 @@ filenames = ['canada-covid.csv', 'canada-vaccination.csv',
              'international-covid.csv', 'usa-covid.csv', 'usa-vaccination.csv']
 outdir = 'cleaned_data/'
 
+
 def cleanCanadaCovid(path):
     print("Cleaning Canada Covid Data...")
     full_path = path + filenames[0]
@@ -18,6 +19,7 @@ def cleanCanadaCovid(path):
     out_name = 'cleaned-' + filenames[0]
     select_data.to_csv(out_name)
     
+    
 def cleanCanadaVaccine(path):
     print("Cleaning Canada Vaccine Data...")
     full_path = path + filenames[1]
@@ -28,6 +30,7 @@ def cleanCanadaVaccine(path):
     
     out_name = 'cleaned-' + filenames[1]
     select_data.to_csv(out_name)
+
 
 def cleanInternationalCovid(path):
     print("Cleaning International Covid Data...")
@@ -41,25 +44,41 @@ def cleanInternationalCovid(path):
     out_name = 'cleaned-' + filenames[2]
     select_data.to_csv(out_name)
 
+
 def cleanUSACovid(path):
     print("Cleaning USA Covid Data...")
     full_path = path + filenames[3]
-    data = pd.read_csv(full_path)
-    pass
+    data = pd.read_csv(full_path, parse_dates=['submission_date'])
+    
+    select_data = data[['submission_date', 'state', 'tot_cases', 'conf_cases', 'prob_cases', 'new_case', 'tot_death',
+                        'new_death']]
+    select_data = select_data.dropna()
+    select_data = select_data.sort_values('submission_date')
+    
+    out_name = 'cleaned-' + filenames[3]
+    select_data.to_csv(out_name)
+    
     
 def cleanUSAVaccine(path):
     print("Cleaning USA Vaccine Data...")
     full_path = path + filenames[4]
-    data = pd.read_csv(full_path)
-    pass
+    data = pd.read_csv(full_path, dtype={'FIPS': "string"})
+    
+    select_data = data[['Date', 'Recip_State', 'Administered_Dose1_Recip', 'Administered_Dose1_Pop_Pct']]
+    select_data = select_data.groupby(['Recip_State', 'Date'], as_index=False).aggregate('mean')
+    select_data = select_data.rename(columns={'Date': 'date', 'Recip_State': 'state', 'Administered_Dose1_Recip': 'dose1',
+                                              'Administered_Dose1_Pop_Pct': 'dose1_pct'})
+    
+    out_name = 'cleaned-' + filenames[4]
+    select_data.to_csv(out_name)
 
 
 def main(path):
     cleanCanadaCovid(path)
     cleanCanadaVaccine(path)
     cleanInternationalCovid(path)
-    #cleanUSACovid(path)
-    #cleanUSAVaccine(path)
+    cleanUSACovid(path)
+    cleanUSAVaccine(path)
 
 
 if __name__ == '__main__':
