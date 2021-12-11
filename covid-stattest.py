@@ -1,4 +1,4 @@
-# T-Test on COVID-19 data
+# MannU-test on COVID-19 data
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -48,7 +48,7 @@ def mannu_can_int():
     plt.show()
 
 
-def mannu_can_vaccine():
+def mannu_can_vaccine_deaths():
     can_covid = pd.read_csv(covid_canada_data)
     can_covid['deaths_per_100cases'] = can_covid['new_deaths'] / can_covid['new_cases'] * 100
     
@@ -69,7 +69,7 @@ def mannu_can_vaccine():
     plt.show()
     
     
-def mannu_int_vaccine():
+def mannu_int_vaccine_deaths():
     int_covid = pd.read_csv(covid_international_data).groupby('date').aggregate('sum')
     int_covid['deaths_per_100cases'] = int_covid['new_deaths'] / int_covid['new_cases'] * 100
     
@@ -90,11 +90,32 @@ def mannu_int_vaccine():
     plt.show()
 
 
+def mannu_can_vaccine_cases():
+    can_covid = pd.read_csv(covid_canada_data)
+    
+    median_vax = can_covid['people_vaccinated_per_hundred'].median()
+    
+    can_covid_lowvax = can_covid[can_covid['people_vaccinated_per_hundred'] < median_vax] 
+    can_covid_highvax = can_covid[can_covid['people_vaccinated_per_hundred'] >= median_vax] 
+    
+    covid_mannu = stats.mannwhitneyu(can_covid_lowvax['new_cases'], can_covid_highvax['new_cases'])
+    print(covid_mannu.pvalue)
+    
+    plt.figure(4)
+    
+    #bins = np.linspace(0, 16, 24)
+    plt.hist([can_covid_lowvax['new_cases'], can_covid_highvax['new_cases']], bins=12, color=['tab:blue', 'tab:orange'])
+    plt.xlabel("Daily COVID-19 Cases")
+    plt.legend(['Canada Low Vaccination', 'Canada High Vaccination'])
+    plt.show()
+    
+
 def main():
     mannu_can_usa()
     mannu_can_int()
-    mannu_can_vaccine()
-    mannu_int_vaccine()
+    mannu_can_vaccine_deaths()
+    mannu_int_vaccine_deaths()
+    mannu_can_vaccine_cases()
 
 
 if __name__ == '__main__':
