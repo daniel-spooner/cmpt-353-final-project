@@ -8,7 +8,7 @@ sudo apt-get install python3.8
 ### Install Required Packages
 ```
 python -m pip install -U pip wheel
-python -m pip install -U numpy pandas matplotlib scipy statsmodels scikit-image keras jupyter notebook
+python -m pip install -U numpy pandas matplotlib scipy statsmodels scikit-image sklearn keras jupyter notebook
 ```
 ## Download Data
 
