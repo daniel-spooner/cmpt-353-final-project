@@ -38,4 +38,4 @@ python covid-stattest.py
 
 ### `covid.ipynb`
 Open notebook, and run all cells.
-(Please change the path if it does not work.)
+(Please change the path if it does not work)
