@@ -21,11 +21,12 @@ https://covid.ourworldindata.org/data/owid-covid-data.csv
 
 ## Run Instructions
 Run data_processing.py to get datafiles for `anova.ipynb`, `covid-stattest.py`, and `covid.ipynb`.
+(no arguments for sample data, or path to owid-covid-data.csv for real data)
 
 ```
 python data_processing.py [path_to_owid_csv]
 ```
-Place created data files in `clean_data/`
+Copy created data files in `clean_data/`
 
 ### `avova.ipynb`
 Open notebook, and run all cells.

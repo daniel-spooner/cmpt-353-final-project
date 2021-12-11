@@ -25,6 +25,7 @@ def mannu_can_usa():
     bins = np.linspace(0, 16, 24)
     plt.hist([can_covid['deaths_per_100cases'], usa_covid['deaths_per_100cases']], bins, color=['tab:blue', 'tab:orange'])
     plt.xlabel("Daily Deaths per 100 COVID-19 Cases")
+    plt.title("Canada vs USA Deaths per Case")
     plt.legend(['Canadian Deaths per 100 Cases', 'USA Deaths per 100 Cases'])
     plt.show()
     
@@ -44,6 +45,7 @@ def mannu_can_int():
     bins = np.linspace(0, 16, 24)
     plt.hist([can_covid['deaths_per_100cases'], int_covid['deaths_per_100cases']], bins, color=['tab:red', 'tab:green'])
     plt.xlabel("Daily Deaths per 100 COVID-19 Cases")
+    plt.title("Canada vs International Deaths per Case")
     plt.legend(['Canadian Deaths per 100 Cases', 'International Deaths per 100 Cases'])
     plt.show()
 
@@ -65,6 +67,7 @@ def mannu_can_vaccine_deaths():
     bins = np.linspace(0, 16, 24)
     plt.hist([can_covid_lowvax['deaths_per_100cases'], can_covid_highvax['deaths_per_100cases']], bins, color=['tab:blue', 'tab:orange'])
     plt.xlabel("Daily Deaths per 100 COVID-19 Cases")
+    plt.title("Canadian Deaths per Day")
     plt.legend(['Canada Low Vaccination', 'Canada High Vaccination'])
     plt.show()
     
@@ -86,6 +89,7 @@ def mannu_int_vaccine_deaths():
     bins = np.linspace(0, 16, 24)
     plt.hist([int_covid_lowvax['deaths_per_100cases'], int_covid_highvax['deaths_per_100cases']], bins, color=['tab:red', 'tab:green'])
     plt.xlabel("Daily Deaths per 100 COVID-19 Cases")
+    plt.title("International Deaths per Day")
     plt.legend(['International Low Vaccination', 'Internationl High Vaccination'])
     plt.show()
 
@@ -106,6 +110,7 @@ def mannu_can_vaccine_cases():
     #bins = np.linspace(0, 16, 24)
     plt.hist([can_covid_lowvax['new_cases'], can_covid_highvax['new_cases']], bins=12, color=['tab:blue', 'tab:orange'])
     plt.xlabel("Daily COVID-19 Cases")
+    plt.title("Canadian Cases per Day")
     plt.legend(['Canada Low Vaccination', 'Canada High Vaccination'])
     plt.show()
     
