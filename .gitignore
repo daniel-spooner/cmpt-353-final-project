@@ -1,4 +1,4 @@
 raw_data
 clean_data
+sample_data.py
 *.png
-*.csv

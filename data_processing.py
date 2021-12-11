@@ -3,12 +3,16 @@
 import pandas as pd
 import sys
 
-filename = 'owid-covid-data.csv'
+default_filename = 'sample_data/sample-owid-covid-data.csv'
 
 
 def cleanCanadaCovid(path):
     print("Cleaning Canada Covid Data...")
-    full_path = path + filename
+    if path == '':
+        full_path = default_filename
+    else:    
+        full_path = path
+        
     data = pd.read_csv(full_path, parse_dates=['date'])
     data = data[data['iso_code'] == 'CAN']
 
@@ -21,7 +25,10 @@ def cleanCanadaCovid(path):
 
 def cleanInternationalCovid(path):
     print("Cleaning International Covid Data...")
-    full_path = path + filename
+    if path == '':
+        full_path = default_filename
+    else:    
+        full_path = path
     data = pd.read_csv(full_path, parse_dates=['date'])
 
     select_data = data[['iso_code', 'date', 'total_cases', 'new_cases', 'total_deaths', 'new_deaths', 
@@ -34,7 +41,10 @@ def cleanInternationalCovid(path):
 
 def cleanUSACovid(path):
     print("Cleaning USA Covid Data...")
-    full_path = path + filename
+    if path == '':
+        full_path = default_filename
+    else:    
+        full_path = path
     data = pd.read_csv(full_path, parse_dates=['date'])
     data = data[data['iso_code'] == 'USA']
 
@@ -44,7 +54,6 @@ def cleanUSACovid(path):
     
     out_name = 'cleaned-usa-covid.csv'
     select_data.to_csv(out_name, index=False)
-    print(select_data.dtypes)
 
 
 def main(path):
@@ -56,7 +65,7 @@ def main(path):
 
 if __name__ == '__main__':
     if(len(sys.argv) > 1):
-        data_directory = sys.argv[1] + '/'
+        data_directory = sys.argv[1]
         main(data_directory)
     else:
         main('')
