@@ -1,7 +1,6 @@
 # COVID-19 Data Analysis
 
 ## Installation
----
 ### Python
 ```
 sudo apt-get install python3.8
@@ -14,13 +13,13 @@ python -m pip install -U numpy pandas matplotlib scipy statsmodels scikit-image 
 ## Download Data
 
 Download complete COVID-19 dataset from  
-`https://github.com/owid/covid-19-data/tree/master/public/data`
+https://github.com/owid/covid-19-data/tree/master/public/data
 
+Direct link
 https://covid.ourworldindata.org/data/owid-covid-data.csv
 
 
 ## Run Instructions
----
 Run data_processing.py to get datafiles for `anova.ipynb`, `covid-stattest.py`, and `covid.ipynb`.
 
 ```
